@@ -9,12 +9,13 @@ import twitter
 
 from django.conf import settings
 
-from account.models import other_service
+#from account.models import other_service
 
 def twitter_account_raw(username, password):
     return twitter.Api(username=username, password=password)
 
 def twitter_account_for_user(user):
+    return 
     profile = user.get_profile()
     twitter_user = other_service(user, "twitter_user")
     twitter_password = other_service(user, "twitter_password")
