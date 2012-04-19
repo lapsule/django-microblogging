@@ -7,7 +7,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
-from microblogging.utils import twitter_account_for_user, twitter_verify_credentials
+#from microblogging.utils import twitter_account_for_user, twitter_verify_credentials
 from microblogging.models import Tweet, TweetInstance, Following
 from microblogging.forms import TweetForm
 
@@ -22,15 +22,15 @@ def personal(request, form_class=TweetForm,
     """
     just the tweets the current user is following
     """
-    twitter_account = twitter_account_for_user(request.user)
+    #twitter_account = twitter_account_for_user(request.user)
 
     if request.method == "POST":
         form = form_class(request.user, request.POST)
         if form.is_valid():
             text = form.cleaned_data['text']
             form.save()
-            if request.POST.get("pub2twitter", False):
-                twitter_account.PostUpdate(text)
+#            if request.POST.get("pub2twitter", False):
+#                twitter_account.PostUpdate(text)
             if success_url is None:
                 success_url = reverse('microblogging.views.personal')
             return HttpResponseRedirect(success_url)
@@ -45,7 +45,7 @@ def personal(request, form_class=TweetForm,
         "form": form,
         "reply": reply,
         "tweets": tweets,
-        "twitter_authorized": twitter_verify_credentials(twitter_account),
+#        "twitter_authorized": twitter_verify_credentials(twitter_account),
     }, context_instance=RequestContext(request))
 personal = login_required(personal)
     
